@@ -21,46 +21,96 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+### 1️⃣ Clonar o repositório
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+git clone git@github.com:karoline-gaia/Teste-PHP.git
+cd Teste-PHP
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 2️⃣ Instalar as dependências do Laravel
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+composer install
+```
 
-## Laravel Sponsors
+### 3️⃣ Copiar o arquivo de ambiente e gerar a chave da aplicação
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-### Premium Partners
+### 4️⃣ Subir os containers com Laravel Sail
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Se você ainda não configurou o Laravel Sail, execute o seguinte comando:
 
-## Contributing
+```bash
+php artisan sail:install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Após a instalação, suba os containers:
 
-## Code of Conduct
+```bash
+./vendor/bin/sail up -d
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+> **Nota:** O comando `-d` executa os containers em segundo plano.
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+## 🚀 Como Usar
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+A API possui uma rota `POST` para encontrar as strings mais longas em um array.
+
+### 📌 Rota: `/longest-strings`
+
+**Método:** `POST`
+
+**Exemplo de Requisição:**
+
+```json
+{
+    "inputArray": ["aba", "aa", "ad", "vcd", "aba"]
+}
+```
+
+**Exemplo de Resposta:**
+
+```json
+{
+    "stringsMaisLongas": ["aba", "vcd", "aba"]
+}
+```
+
+Você pode testar a API utilizando ferramentas como **Postman**, **Insomnia** ou via terminal com `cURL`:
+
+```bash
+curl -X POST http://localhost/longest-strings \
+     -H "Content-Type: application/json" \
+     -d '{"inputArray": ["aba", "aa", "ad", "vcd", "aba"]}'
+```
+
+---
+
+## 🛠 Testes
+
+Para rodar os testes unitários com PHPUnit, execute:
+
+```bash
+./vendor/bin/sail test
+```
+
+---
+
+## 🛑 Parando o Ambiente Docker
+
+Caso queira parar os containers do Laravel Sail, execute:
+
+```bash
+./vendor/bin/sail down
+```
+
+---
+
+
